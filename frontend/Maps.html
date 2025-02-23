@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Iceland&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>Maps</title>
+</head>
+
+<body>
+    <div class="v2_15">
+        <div class="v2_13"></div>
+        <div class="v2_3"></div>
+        <div class="v2_4"><span class="v2_5">00:00:00</span><span class="v2_6">Mission Time</span></div>
+        <div class="v2_8"><span class="v2_9">LAUNCH PAD</span><span class="v2_10">State</span></div>
+        <div class="v2_17"><span class="v2_11">
+                Team Id:
+            </span><span class="v2_16">2024-ASI-CANSAT-057</span></div>
+        <div class="v2_18"></div>
+        <div class="v2_33">
+            <div class="v2_26"></div><span class="v2_19">GRAPHS</span>
+        </div>
+        <div class="v2_31">
+            <div class="v2_29"></div><span class="v2_22">TELEMETRY</span>
+        </div>
+        <div class="v2_32">
+            <div class="v2_27"></div><span class="v2_20">MAPS</span>
+        </div>
+        <div class="v2_54"></div>
+        <div class="v5_2" id="linkButton"></div><span id="linkText" class="v5_3">Link</span>
+
+        <div class="v7_5"></div>
+        <div class="v7_10">
+            <div id="map"></div>
+        </div>
+        <span id="latitude" class="v7_6">Latitude: 00.0000</span>
+        <span id="longitude" class="v7_8">Longitude: 00.0000</span>
+    </div>
+
+    <script>
+        let isLinked = false; // Track if data is being fetched
+        let intervalId = null; // Store the interval ID for clearing later
+
+        // Function to start/stop data fetching
+        function toggleLink() {
+            const linkText = document.getElementById('linkText');
+
+            if (!isLinked) {
+                // Start fetching data
+                isLinked = true;
+                linkText.textContent = 'Unlink'; // Change button text to Unlink
+
+                // Fetch data immediately and then every 0.6 seconds
+                fetchData(); // Replace with the appropriate fetch function for the current tab
+                intervalId = setInterval(fetchData, 600); // Replace with the appropriate fetch function
+            } else {
+                // Stop fetching data
+                isLinked = false;
+                linkText.textContent = 'Link'; // Change button text back to Link
+                clearInterval(intervalId); // Stop the interval
+            }
+        }
+
+        // Add event listener to the Link button
+        document.getElementById('linkButton').addEventListener('click', toggleLink);
+        // Initialize the map
+        const map = L.map('map').setView([26.4503205, 80.1921224], 13); // Default center (India)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        let marker = L.marker([26.4503205, 80.1921224]).addTo(map); // Default marker
+
+        // Fetch data and update map
+        function fetchData() {
+            fetch('http://localhost:5000/map-data')
+                .then(response => response.json())
+                .then(data => {
+                    // Update latitude and longitude
+                    document.getElementById('latitude').textContent = `Latitude: ${data.latitude}`;
+                    document.getElementById('longitude').textContent = `Longitude: ${data.longitude}`;
+
+                    // Update map marker
+                    marker.setLatLng([data.latitude, data.longitude]);
+                    map.setView([data.latitude, data.longitude], 13); // Center map on new coordinates
+                })
+                .catch(error => console.error('Error fetching map data:', error));
+        }
+
+        setInterval(fetchData, 600); // Update every 0.6 seconds
+    </script>
+</body>
+
+</html>

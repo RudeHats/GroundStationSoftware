@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Iceland&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="tel.css">
+    <title>Telemetry</title>
+</head>
+
+<body>
+    <div class="v2_15">
+        <div class="v2_13"></div>
+        <div class="v2_3"></div>
+        <div class="v2_4"><span class="v2_5">00:00:00</span><span class="v2_6">Mission Time</span></div>
+        <div class="v2_8"><span class="v2_9">LAUNCH PAD</span><span class="v2_10">State</span></div>
+        <div class="v2_17"><span class="v2_11">
+                Team Id:
+            </span><span class="v2_16">2024-ASI-CANSAT-057</span></div>
+        <div class="v2_18"></div>
+        <div class="v2_33">
+            <div class="v2_26"></div><span class="v2_19">GRAPHS</span>
+        </div>
+        <div class="v2_31">
+            <div class="v2_29"></div><span class="v2_22">TELEMETRY</span>
+        </div>
+        <div class="v2_32">
+            <div class="v2_27"></div><span class="v2_20">MAPS</span>
+        </div>
+        <div class="v2_54"></div>
+        <div class="v3_80"></div>
+        <div class="v3_115"></div><span class="v3_81">GNSS Data</span><span class="v3_82">Time</span><span id="gnssTime"
+            class="v3_83">00:09:01</span><span class="v3_84">Latitude</span><span id="latitude"
+            class="v3_85">26.4503205</span><span class="v3_86">Longitude</span><span id="longitude"
+            class="v3_87">80.1921224</span>
+        <div class="v3_65"></div><span class="v3_66">Humidity</span><span class="v3_67">Voltage</span><span
+            class="v3_68">CanSat</span><span class="v3_69">Altitude</span><span id="altitude" class="v3_70">12.8
+            m</span><span id="voltage" class="v3_71">4.1 V</span><span id="temperature" class="v3_72">25.2 C</span><span
+            id="humidity" class="v3_73">45% </span><span id="pressure" class="v3_74">101.3 kpa</span><span
+            class="v3_75">Temperature</span><span id="velocity" class="v3_76">15m/s</span><span
+            class="v3_77">Velocity</span><span class="v3_78">Pressure</span><span class="v2_56">Logs</span>
+        <div class="v3_121">
+            <div class="v3_118"></div>
+            <div class="v3_119"></div><span id="logs" class="v3_122">3103, 00:00:06, 123, FLIGHT, DESCENT, 850.5, 22.3,
+                95.7, 4.8,
+                0.12, 0.05, 0.08, 0.98, 0.02, 0.01, 0.15, 0.10, 0.12, 0.05, 12:34:55, 850.2, 37.7749, -122.4194, 8,
+                RESET_CMD</span>
+        </div><span class="v3_91">Sensor Metrics</span><span class="v3_92">Gyro </span><span
+            class="v3_93">Acceleration</span><span class="v3_94">Magnetic Field</span><span id="gyroX"
+            class="v3_95">1.2</span><span id="gyroY" class="v3_96">0.01</span><span id="gyroZ"
+            class="v3_97">-0.5</span><span id="accelX" class="v3_98">0.02</span><span id="accelY"
+            class="v3_99">0.8</span><span id="accelZ" class="v3_100">X</span><span class="v3_101">Y</span><span
+            class="v3_102">Z</span><span id="magX" class="v3_103">-0.01</span><span id="magY"
+            class="v3_104">0.35</span><span id="magZ" class="v3_105">-0.18</span><span id="velocityX"
+            class="v3_106">1.2</span><span class="v3_108">Velocity</span><span id="velocityY"
+            class="v3_109">0.35</span><span id="velocityZ" class="v3_110">-0.18</span><span id="velocityTotal"
+            class="v3_111">1.2</span>
+
+        <div class="v5_2" id="linkButton"></div><span id="linkText" class="v5_3">Link</span>
+    </div>
+
+    <script>
+        let isLinked = false; // Track if data is being fetched
+        let intervalId = null; // Store the interval ID for clearing later
+    
+        // Function to start/stop data fetching
+        function toggleLink() {
+            const linkText = document.getElementById('linkText');
+    
+            if (!isLinked) {
+                // Start fetching data
+                isLinked = true;
+                linkText.textContent = 'Unlink'; // Change button text to Unlink
+    
+                // Fetch data immediately and then every 0.6 seconds
+                fetchData();
+                intervalId = setInterval(fetchData, 600);
+            } else {
+                // Stop fetching data
+                isLinked = false;
+                linkText.textContent = 'Link'; // Change button text back to Link
+                clearInterval(intervalId); // Stop the interval
+            }
+        }
+    
+        // Add event listener to the Link button
+        document.getElementById('linkButton').addEventListener('click', toggleLink);
+    
+        // Fetch data and update telemetry
+        function fetchData() {
+            fetch('http://localhost:5000/telemetry')
+                .then(response => response.json())
+                .then(data => {
+                    // Update GNSS Data
+                    document.getElementById('gnssTime').textContent = data.gnssTime;
+                    document.getElementById('latitude').textContent = data.latitude;
+                    document.getElementById('longitude').textContent = data.longitude;
+    
+                    // Update CanSat Data
+                    document.getElementById('altitude').textContent = `${data.altitude} m`;
+                    document.getElementById('voltage').textContent = `${data.voltage} V`;
+                    document.getElementById('temperature').textContent = `${data.temperature} °C`;
+                    document.getElementById('humidity').textContent = `${data.humidity}%`;
+                    document.getElementById('pressure').textContent = `${data.pressure} kPa`;
+                    document.getElementById('velocity').textContent = `${data.velocity} m/s`;
+    
+                    // Update Sensor Metrics
+                    document.getElementById('gyroX').textContent = data.gyroX;
+                    document.getElementById('gyroY').textContent = data.gyroY;
+                    document.getElementById('gyroZ').textContent = data.gyroZ;
+                    document.getElementById('accelX').textContent = data.accelX;
+                    document.getElementById('accelY').textContent = data.accelY;
+                    document.getElementById('accelZ').textContent = data.accelZ;
+                    document.getElementById('magX').textContent = data.magX;
+                    document.getElementById('magY').textContent = data.magY;
+                    document.getElementById('magZ').textContent = data.magZ;
+                    document.getElementById('velocityX').textContent = data.velocityX;
+                    document.getElementById('velocityY').textContent = data.velocityY;
+                    document.getElementById('velocityZ').textContent = data.velocityZ;
+                    document.getElementById('velocityTotal').textContent = data.velocityTotal;
+    
+                    // Update Logs
+                    document.getElementById('logs').textContent = data.logs;
+                })
+                .catch(error => console.error('Error fetching telemetry data:', error));
+        }
+    
+        // Fetch data immediately when the page loads
+        fetchData();
+    
+        // Fetch data every 0.6 seconds
+        setInterval(fetchData, 600);
+    
+        // Navigation
+        document.getElementById('graphTab').addEventListener('click', () => {
+            window.location.href = 'Graphs.html'; // Redirect to Graphs page
+        });
+    
+        document.getElementById('mapsTab').addEventListener('click', () => {
+            window.location.href = 'Maps.html'; // Redirect to Maps page
+        });
+    </script>
+</body>
+
+</html>

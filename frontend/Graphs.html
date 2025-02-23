@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Iceland&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded&display=swap" rel="stylesheet" />
+    <title>GRAPHS</title>
+    <link rel="stylesheet" href="graph.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="v2_15">
+        <div class="v2_13"></div>
+        <div class="v2_3"></div>
+        <div class="v2_4"><span class="v2_5">00:00:00</span><span class="v2_6">Mission Time</span></div>
+        <div class="v2_8"><span class="v2_9">LAUNCH PAD</span><span class="v2_10">State</span></div>
+        <div class="v2_17"><span class="v2_11">
+                Team Id:
+            </span><span class="v2_16">2024-ASI-CANSAT-057</span></div>
+        <div class="v2_18"></div>
+        <div class="v2_33">
+            <div class="v2_26"></div><span class="v2_19">GRAPHS</span>
+        </div>
+        <div class="v2_31">
+            <div id="telemetryTab" class="v2_29"></div><span class="v2_22">TELEMETRY</span>
+        </div>
+        <div class="v2_32">
+            <div  id="mapsTab" class="v2_27"></div><span class="v2_20">MAPS</span>
+        </div>
+        <div class="v2_54"></div>
+        <div class="v5_2" id="linkButton"></div><span id="linkText" class="v5_3">Link</span>
+        <div class="v7_10"></div>
+        <div class="v7_12">
+            <canvas id="temperatureChart"></canvas>
+        </div>
+        <div class="v7_13">
+            <canvas id="pressureChart"></canvas>
+        </div>
+        <div class="v7_15">
+            <canvas id="altitudeChart"></canvas>
+        </div>
+        <div class="v7_16">
+            <canvas id="velocityChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+         document.getElementById('telemetryTab').addEventListener('click', () => {
+        window.location.href = 'Telemetry.html'; // Redirect to Telemetry page
+    });
+    document.getElementById('mapsTab').addEventListener('click', () => {
+        window.location.href = 'Maps.html'; // Redirect to Telemetry page
+    });
+        let isLinked = false; // Track if data is being fetched
+        let intervalId = null; // Store the interval ID for clearing later
+
+        // Function to start/stop data fetching
+        function toggleLink() {
+            const linkText = document.getElementById('linkText');
+
+            if (!isLinked) {
+                // Start fetching data
+                isLinked = true;
+                linkText.textContent = 'Unlink'; // Change button text to Unlink
+
+                // Fetch data immediately and then every 0.6 seconds
+                fetchData(); // Replace with the appropriate fetch function for the current tab
+                intervalId = setInterval(fetchData, 600); // Replace with the appropriate fetch function
+            } else {
+                // Stop fetching data
+                isLinked = false;
+                linkText.textContent = 'Link'; // Change button text back to Link
+                clearInterval(intervalId); // Stop the interval
+            }
+        }
+
+        // Add event listener to the Link button
+        document.getElementById('linkButton').addEventListener('click', toggleLink);
+        // Initialize charts
+        const temperatureChart = new Chart(document.getElementById('temperatureChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const pressureChart = new Chart(document.getElementById('pressureChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Pressure (kPa)',
+                    data: [],
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const altitudeChart = new Chart(document.getElementById('altitudeChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Altitude (m)',
+                    data: [],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const velocityChart = new Chart(document.getElementById('velocityChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Velocity (m/s)',
+                    data: [],
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Fetch data and update charts
+        function fetchData() {
+            fetch('http://localhost:5000/data')
+                .then(response => response.json())
+                .then(data => {
+                    const time = new Date().toLocaleTimeString();
+
+                    // Update Temperature Chart
+                    temperatureChart.data.labels.push(time);
+                    temperatureChart.data.datasets[0].data.push(data.temperature);
+                    temperatureChart.update();
+
+                    // Update Pressure Chart
+                    pressureChart.data.labels.push(time);
+                    pressureChart.data.datasets[0].data.push(data.pressure);
+                    pressureChart.update();
+
+                    // Update Altitude Chart
+                    altitudeChart.data.labels.push(time);
+                    altitudeChart.data.datasets[0].data.push(data.altitude);
+                    altitudeChart.update();
+
+                    // Update Velocity Chart
+                    velocityChart.data.labels.push(time);
+                    velocityChart.data.datasets[0].data.push(data.velocity);
+                    velocityChart.update();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        setInterval(fetchData, 600); // Update every 0.6 seconds
+    </script>
+</body>
+
+</html>

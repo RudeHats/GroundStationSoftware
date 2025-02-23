@@ -1,0 +1,346 @@
+* {
+  box-sizing: border-box;
+}
+.v13_34 {
+  pointer-events: none; /* Allow clicks to pass through to the span */
+}
+body {
+  font-size: 14px;
+}
+.v2_15 {
+  width: 100%;
+  height: 1080px;
+  background: rgba(210,210,210,1);
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v2_13 {
+  width: 100%;
+  height: 120px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+.v2_3 {
+  width: 124px;
+  height: 91px;
+  background: url("../images/v2_3.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 15px;
+  left: 898px;
+  overflow: hidden;
+}
+.v9_3 {
+  width: 239px;
+  height: 62px;
+  background: url("../images/v9_3.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 28px;
+  left: 1643px;
+  overflow: hidden;
+}
+.v9_2 {
+  width: 239px;
+  height: 62px;
+  background: url("../images/v9_2.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v2_5 {
+  width: 239px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 27px;
+  left: 0px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 36px;
+  opacity: 1;
+  text-align: center;
+}
+.v2_6 {
+  width: 219px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 32px;
+  opacity: 1;
+  text-align: center;
+}
+.v2_8 {
+  width: 249px;
+  height: 63px;
+  background: url("../images/v2_8.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 28px;
+  left: 1394px;
+  overflow: hidden;
+}
+.v2_9 {
+  width: 249px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 28px;
+  left: 0px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 36px;
+  opacity: 1;
+  text-align: center;
+}
+.v2_10 {
+  width: 229px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 32px;
+  opacity: 1;
+  text-align: center;
+}
+.v2_17 {
+  width: 327px;
+  height: 78px;
+  background: url("../images/v2_17.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 16px;
+  left: 27px;
+  overflow: hidden;
+}
+.v2_11 {
+  width: 105px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 0px;
+  left: 111px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 32px;
+  opacity: 1;
+  text-align: center;
+}
+.v2_16 {
+  width: 327px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 43px;
+  left: 0px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 36px;
+  opacity: 1;
+  text-align: center;
+}
+.v12_7 {
+  width: 100%;
+  height: 960px;
+  background: rgba(201,201,201,1);
+  opacity: 1;
+  position: absolute;
+  top: 120px;
+  left: 0px;
+  overflow: hidden;
+}
+.v12_9 {
+  width: 678px;
+  height: 611px;
+  background: rgba(13,13,40,0.8999999761581421);
+  opacity: 1;
+  position: absolute;
+  top: 294px;
+  left: 622px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.v12_10 {
+  width: 345px;
+  height: 118px;
+  background: url("../images/v12_10.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 364px;
+  left: 835px;
+  overflow: hidden;
+}
+.v12_13 {
+  width: 441px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 356px;
+  left: 726px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 55px;
+  opacity: 1;
+  text-align: center;
+}
+.v12_14 {
+  width: 445px;
+  height: 59px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 511px;
+  left: 738px;
+  overflow: hidden;
+}
+.v12_15 {
+  width: 172px;
+  color: rgba(144,144,144,1);
+  position: absolute;
+  top: 521px;
+  left: 707px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 38px;
+  opacity: 1;
+  text-align: center;
+}
+.v12_16 {
+  width: 445px;
+  height: 59px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 586px;
+  left: 738px;
+  overflow: hidden;
+}
+.v12_17 {
+  width: 257px;
+  color: rgba(127,127,127,1);
+  position: absolute;
+  top: 586px;
+  left: 704px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 38px;
+  opacity: 1;
+  text-align: center;
+}
+.v14_47 {
+  width: 100%;
+  height: 51px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 1024px;
+  left: 0px;
+}
+.v13_33 {
+  width: 296px;
+  height: 86px;
+  background: url("../images/v13_33.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 725px;
+  left: 819px;
+  overflow: hidden;
+}
+.v13_34 {
+  width: 296px;
+  height: 78px;
+  background: rgba(255,225,0,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  overflow: hidden;
+}
+.v13_35 {
+  width: 231px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 16px;
+  left: 32px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: center;
+}
+.v12_8 {
+  width: 917px;
+  height: 585px;
+  background: url("../images/v12_8.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 323px;
+  left: 1260px;
+  overflow: hidden;
+}
+.v14_49 {
+  width: 666px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 1038px;
+  left: 634px;
+  font-family: Iceland;
+  font-weight: Regular;
+  font-size: 32px;
+  opacity: 1;
+  text-align: center;
+}
+.v12_6 {
+  width: 702px;
+  height: 508px;
+  background: url("../images/v12_6.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 343px;
+  left: 46px;
+  transform: rotate(-33deg);
+  overflow: hidden;
+}
